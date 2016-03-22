@@ -15,7 +15,7 @@
         }
     },
     "require": {
-        "php": ">=5.3.9",
+        "php": ">=5.4",
         "sonata-project/admin-bundle": "dev-master",
         "sonata-project/media-bundle": "dev-master",
         "friendsofsymfony/jsrouting-bundle": "^1.5"
