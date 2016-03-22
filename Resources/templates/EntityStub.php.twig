@@ -1,0 +1,34 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Levelab\Doctrine\DiscriminatorBundle\Annotation\DiscriminatorEntry;
+use Ait\CmsBundle\Entity\AbstractBlock;
+
+/**
+ * @ORM\Entity()
+ * @DiscriminatorEntry("{{ discriminator_name }}")
+ */
+class {{ classname }}Block extends AbstractBlock
+{
+   {% for field in fields %}
+   /**
+   * @ORM\Column(type="{{ field.type }}", name="{{ field.columnName }}", nullable={{ field.nullable }} {{ field.params }})
+   * @Gedmo\Translatable()
+   */
+   protected ${{ field.fieldName }};
+
+   public function get{{ field.bigName }}()
+   {
+      return $this->{{ field.fieldName }};
+   }
+
+   public function set{{ field.bigName }}(${{ field.fieldName }})
+   {
+      $this->{{ field.fieldName }} = ${{ field.fieldName }};
+   }
+   {% endfor %}
+
+}

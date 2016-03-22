@@ -1,0 +1,11 @@
+Ait\CmsBundle\Entity\BaseParentBlock:
+    type: mappedSuperclass
+    fields:
+        name:
+            type: string
+        template:
+            type: string
+        enabled: 
+            type: boolean
+        position:
+            type: integer

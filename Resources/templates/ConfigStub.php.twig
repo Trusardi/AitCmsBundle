@@ -1,0 +1,6 @@
+ait.sonata_cms.{{ underscore_classname }}:
+        class: AppBundle\Block\{{ class_name }}
+        arguments:
+            - AppBundle\Entity\{{ class_name }}
+        tags:
+            - { name: ait_cms.block }

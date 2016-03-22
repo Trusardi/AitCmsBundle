@@ -1,0 +1,8 @@
+Application\Ait\CmsBundle\Entity\ParentBlock:
+    type: entity
+    table: ait_cms__parent_block
+    id:
+        id:
+            generator:
+                strategy: AUTO
+            type: integer

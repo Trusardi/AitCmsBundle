@@ -1,0 +1,26 @@
+{
+    "name": "aurumit/cms-bundle",
+    "type": "symfony-bundle",
+    "description": "This Bundle provides basic CMS functionality",
+    "keywords": ["cms", "page", "block"],
+    "authors": [
+        {
+            "name": "Kārlis Andersons",
+            "email": "karlis.andersons@aurumit.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Ait\\CmsBundle\\": ""
+        },
+    },
+    "require": {
+        "php": ">=5.3.9",
+        "sonata-project/admin-bundle": "dev-master",
+        "sonata-project/media-bundle": "dev-master",
+        "friendsofsymfony/jsrouting-bundle": "^1.5"
+    },
+    "require-dev": {
+
+    }
+}

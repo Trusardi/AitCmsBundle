@@ -1,0 +1,16 @@
+<?php
+
+namespace AppBundle\Block;
+
+use Ait\CmsBundle\Block\AbstractBlock;
+use Ait\CmsBundle\Entity\AbstractBlock as AbstractBlockEntity;
+
+class {{ classname }} extends AbstractBlock
+{
+    public function buildForm(AbstractBlockEntity $block)
+    {
+        return $this->createFormBuilder($block)
+            {{ add_block|raw }}
+           ;
+    }
+}

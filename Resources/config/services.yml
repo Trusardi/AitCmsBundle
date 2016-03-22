@@ -1,0 +1,60 @@
+services:
+    ait_cms.block_generator:
+        class: Ait\CmsBundle\Generator\BlockGenerator
+        calls:
+            - [setKernel, [@kernel]]
+            - [setDoctrine, [@doctrine]]
+            - [setTemplating, [@twig]]
+    ait_cms.block_manager:
+        class: Ait\CmsBundle\Manager\BlockManager
+        calls:
+            - [setContainer, [@service_container]]
+    ait_cms.twig_extension:
+        class: Ait\CmsBundle\Twig\AitCmsExtension
+        calls:
+            - [setManager, [@ait_cms.block_manager]]
+        tags:
+            - {name: twig.extension}
+    ait_cms.form.type.blocks:
+        class: Ait\CmsBundle\Form\Type\BlockWorkspaceType
+        calls:
+            - [setContainer, [@service_container]]
+            - [setManager, [@ait_cms.block_manager]]
+        tags:
+            - {name: form.type}
+    ait_cms.routing.listener:
+        class: Ait\CmsBundle\Routing\Listener
+        calls:
+            - [setEnabled, [%ait_cms.routing.enabled%]]
+            - [setEntityManager, [@doctrine.orm.default_entity_manager]]
+            - [setPageEntityClass, [%ait_cms.class.page%]]
+            - [setDefaultLocale, [%default_locale%]]
+            - [setLocales, [%locales%]]
+            - [setFirstPageRouteAction, [%ait_cms.routing.first_page_route_action%]]
+        tags:
+            - {name: kernel.event_listener, event: kernel.request}
+    ait_cms.admin.block.info_block:
+        class: Ait\CmsBundle\Sonata\Block\InfoBlock
+        arguments:
+            - ait_cms.admin.block.info_block
+            - "@templating"
+            - "@sonata.admin.pool"
+            - "@sonata.admin.search.handler"
+        tags:
+            - {name: sonata.block}
+    ait_cms.event_listener.block_discriminator:
+        class: Ait\CmsBundle\EventListener\ParentBlockDiscriminatorListener
+        calls:
+            - [setContainer, [@service_container]]
+        tags:
+            - {name: doctrine.event_listener, event: loadClassMetadata}
+    ait_cms.admin.page:
+        class: %ait_cms.admin.page.class%
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: ait_cms, label: "Pages"}
+        arguments:
+            - ~
+            - %ait_cms.class.page%
+            - ~
+        calls:
+            - [setTranslationDomain, [AitCmsBundle]]

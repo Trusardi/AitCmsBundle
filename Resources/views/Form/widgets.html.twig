@@ -1,0 +1,53 @@
+{% block ait_blocks_widget %}
+    <style>
+        .block-workspace-widget-container {
+
+        }
+        .block-workspace-widget-container > div > .form-group {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 10px;
+        }
+        .block-select {
+            margin-bottom: 30px;
+        }
+        .loader {
+            display: none;
+            position: absolute;
+            top: 94px;
+        }
+    </style>
+
+    <div id="block-workspace-widget-container" class="block-workspace-widget-container">
+        <select id="block-select" class="block-select">
+            <option value="">Add Block</option>
+            {% for service_id, instance in blocks %}
+                <option value="{{ service_id }}">{{ instance.title }}</option>
+            {% endfor %}
+        </select>
+
+        <img id="loader" class="loader" src="{{ asset('bundles/sonataadmin/ajax-loader.gif') }}">
+        {{ form_widget(form) }}
+    </div>
+
+    <script>
+        $(function () {
+            'use strict';
+
+            $('#block-select').on('change', function () {
+                var select = $(this),
+                    loader = $('#loader').show(),
+                    routeParams = {uniqid: '{{ sonata_admin.admin.uniqid }}'};
+                if (select.val()) {
+                    routeParams.service_id = select.val();
+                    $.get(Routing.generate('ait_cms_blank_form', routeParams), function (response) {
+                        $('#{{ id }}').prepend($(response).hide().fadeIn());
+                        select.val('').trigger('change');
+                        loader.hide();
+                    });
+                }
+
+                return false;
+            });
+        });
+    </script>
+{% endblock %}

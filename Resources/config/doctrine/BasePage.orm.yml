@@ -1,0 +1,35 @@
+Ait\CmsBundle\Entity\BasePage:
+    type: mappedSuperclass
+    fields:
+        name:
+            type: string
+        slug:
+            type: string
+            unique: true
+        routeAction:
+            type: string
+            nullable: true
+        excerpt:
+            type: text
+            nullable: true
+        content:
+            type: text
+            nullable: true
+        enabled:
+            type: boolean
+            nullable: true
+        extraFieldDefinitions:
+            type: text
+            nullable: true
+        extraFields:
+            type: json_array
+            nullable: true
+        seoTitle:
+            type: string
+            nullable: true
+        seoDescription:
+            type: text
+            nullable: true
+
+
+

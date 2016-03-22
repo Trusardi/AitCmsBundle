@@ -1,0 +1,8 @@
+Application\Ait\CmsBundle\Entity\Page:
+    type: entity
+    table: ait_cms__page
+    id:
+        id:
+            generator:
+                strategy: AUTO
+            type: integer

@@ -1,0 +1,5 @@
+ait_cms_blank_form:
+    path: /ait_cms/block_blank_form
+    defaults:  { _controller: AitCmsBundle:Block:blankForm }
+    options:
+        expose: true
