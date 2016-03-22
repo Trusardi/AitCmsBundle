@@ -12,7 +12,7 @@
     "autoload": {
         "psr-4": {
             "Ait\\CmsBundle\\": ""
-        },
+        }
     },
     "require": {
         "php": ">=5.3.9",
