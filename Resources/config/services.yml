@@ -28,8 +28,8 @@ services:
             - [setEnabled, [%ait_cms.routing.enabled%]]
             - [setEntityManager, [@doctrine.orm.default_entity_manager]]
             - [setPageEntityClass, [%ait_cms.class.page%]]
-            - [setDefaultLocale, [%default_locale%]]
-            - [setLocales, [%locales%]]
+            - [setDefaultLocale, [%ait_cms.translation.default_locale%]]
+            - [setLocales, [%ait_cms.translation.locales%]]
             - [setFirstPageRouteAction, [%ait_cms.routing.first_page_route_action%]]
         tags:
             - {name: kernel.event_listener, event: kernel.request}

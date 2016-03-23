@@ -44,6 +44,17 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
+                ->arrayNode('translation')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->arrayNode('locales')
+                            ->requiresAtLeastOneElement()
+                            ->prototype('scalar')->end()
+                            ->defaultValue(['en'])
+                        ->end()
+                        ->scalarNode('default_locale')->defaultValue('en')->end()
+                    ->end()
+                ->end()
             ->end()
         ;
 
