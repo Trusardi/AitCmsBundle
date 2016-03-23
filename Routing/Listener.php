@@ -182,13 +182,13 @@ class Listener
             }
 
             foreach ($this->locales as $locale) {
-                $path = sprintf('/%s', $page->getTranslation('slug', $locale));
+                $path = sprintf('/%s', $this->getTranslation($page, 'slug', $locale));
 
                 $firstParent = $page->getParent();
                 $lastParent = $firstParent;
                 $parent = $firstParent;
                 while ($parent) {
-                    $path = sprintf('/%s%s', $parent->getTranslation('slug', $locale), $path);
+                    $path = sprintf('/%s%s', $this->getTranslation($parent, 'slug', $locale), $path);
                     $parent = $parent->getParent();
                     if ($parent) {
                         $lastParent = $parent;
@@ -215,7 +215,7 @@ class Listener
 
                 $pagePath = $path;
                 foreach ($resourceItems as $resourceItem) {
-                    $path = sprintf('%s/%s', $pagePath, $resourceItem->getTranslation('slug', $locale));
+                    $path = sprintf('%s/%s', $pagePath, $this->getTranslation($resourceItem, 'slug', $locale));
 
                     $route = new RouteData();
                     $route->setPath($path)
@@ -233,5 +233,17 @@ class Listener
         }
 
         return $this->routeCollection = $routeCollection;
+    }
+
+    private function getTranslation($object, $field, $locale)
+    {
+        $translatableCheckerClass = 'Sonata\\TranslationBundle\\Checker\\TranslatableChecker';
+        if (class_exists($translatableCheckerClass) && (new $translatableCheckerClass())->isTranslatable($object)) {
+            return $object->getTranslation($field, $locale);
+        }
+
+        $method = sprintf('get%s', ucfirst($field));
+
+        return $object->$method();
     }
 }
