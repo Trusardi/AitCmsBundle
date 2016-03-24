@@ -1,6 +1,7 @@
 {
     "name": "aurumit/cms-bundle",
     "type": "symfony-bundle",
+    "licence": "MIT",
     "description": "This Bundle provides basic CMS functionality",
     "keywords": ["cms", "page", "block"],
     "authors": [
