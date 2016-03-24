@@ -24,7 +24,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->booleanNode('enable_routing')->defaultTrue()->end()
-                ->scalarNode('first_page_route_action')->defaultNull()->end()
+                ->scalarNode('first_page_route_action')->defaultValue('welcome')->end()
                 ->arrayNode('class')
                     ->addDefaultsIfNotSet()
                     ->children()
