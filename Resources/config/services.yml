@@ -58,3 +58,12 @@ services:
             - ~
         calls:
             - [setTranslationDomain, [AitCmsBundle]]
+    ait_cms.admin.block.page_block:
+        class: Ait\CmsBundle\Sonata\Block\PageBlock
+        arguments:
+            - ait_cms.admin.block.page_block
+            - @templating
+            - @doctrine.orm.entity_manager
+            - %ait_cms.class.page%
+        tags:
+            - {name: sonata.block}
