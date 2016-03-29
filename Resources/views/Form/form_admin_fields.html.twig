@@ -1,0 +1,7 @@
+{% extends 'SonataDoctrineORMAdminBundle:Form:form_admin_fields.html.twig' %}
+
+{% block form_row %}
+    <div class="ait-cms-form-group {{ form.vars.attr.group_class|default }}">
+        {{ parent() }}
+    </div>
+{% endblock form_row %}

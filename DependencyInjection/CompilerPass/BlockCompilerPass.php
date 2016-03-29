@@ -4,6 +4,7 @@ namespace Ait\CmsBundle\DependencyInjection\CompilerPass;
 
 use Ait\CmsBundle\Annotation\RouteAction;
 use Doctrine\Common\Annotations\AnnotationReader;
+use Sonata\DoctrineORMAdminBundle\DependencyInjection\Compiler\AddTemplatesCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Reference;
@@ -153,5 +154,17 @@ class BlockCompilerPass implements CompilerPassInterface
         $sonataTemplates = $container->getParameter('sonata.admin.configuration.templates');
         $sonataTemplates['layout'] = 'AitCmsBundle:Sonata/Admin:standard_layout.html.twig';
         $container->setParameter('sonata.admin.configuration.templates', $sonataTemplates);
+
+        $sonataOrmCompilerPass = new AddTemplatesCompilerPass();
+        foreach ($container->findTaggedServiceIds('sonata.admin') as $id => $attributes) {
+            if (!isset($attributes[0]['manager_type']) || $attributes[0]['manager_type'] !== 'orm') {
+                continue;
+            }
+            $sonataOrmCompilerPass->mergeMethodCall(
+                $container->getDefinition($id),
+                'setFormTheme',
+                ['AitCmsBundle:Form:form_admin_fields.html.twig']
+            );
+        }
     }
 }
