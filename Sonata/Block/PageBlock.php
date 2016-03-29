@@ -27,7 +27,7 @@ class PageBlock extends BaseBlockService
         $pages = $this->enm->createQueryBuilder()
             ->select('p.id, p.name')
             ->from('AppBundle:Page', 'p')
-            ->orderBy('p.id', 'DESC')
+            ->orderBy('p.updatedAt', 'DESC')
             ->setMaxResults(10)
             ->getQuery()
             ->getArrayResult();
