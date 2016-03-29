@@ -34,6 +34,10 @@ abstract class Page implements PageInterface
 
     protected $seoDescription;
 
+    protected $createdAt;
+
+    protected $updatedAt;
+
     public function __construct()
     {
         $this->blocks = new ArrayCollection();
@@ -176,6 +180,26 @@ abstract class Page implements PageInterface
     public function setSeoDescription($seoDescription)
     {
         $this->seoDescription = $seoDescription;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTime $createdAt = null)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTime $updatedAt = null)
+    {
+        $this->updatedAt = $updatedAt;
     }
 
     public function __toString()

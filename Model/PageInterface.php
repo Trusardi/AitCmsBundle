@@ -140,4 +140,24 @@ interface PageInterface
      * @param string $seoDescription
      */
     public function setSeoDescription($seoDescription);
+
+    /**
+     * @param \Datetime $updatedAt
+     */
+    public function setUpdatedAt(\Datetime $updatedAt = null);
+
+    /**
+     * @return \Datetime $updatedAt
+     */
+    public function getUpdatedAt();
+
+    /**
+     * @param \Datetime $createdAt
+     */
+    public function setCreatedAt(\Datetime $createdAt = null);
+
+    /**
+     * @return \Datetime $createdAt
+     */
+    public function getCreatedAt();
 }

@@ -30,6 +30,13 @@ Ait\CmsBundle\Entity\BasePage:
         seoDescription:
             type: text
             nullable: true
+        createdAt:
+            type: datetime
+        updatedAt:
+            type: datetime
+    lifecycleCallbacks:
+        prePersist: [prePersist]
+        preUpdate: [preUpdate]
 
 
 
