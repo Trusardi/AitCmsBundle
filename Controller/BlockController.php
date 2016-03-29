@@ -20,7 +20,7 @@ class BlockController extends Controller
         $block = $this->get($serviceId);
         /** @var AbstractBlockService $block */
 
-        $pageAdmin = $this->container->get('sonata.admin.page');
+        $pageAdmin = $this->container->get('ait_cms.admin.page');
         $pageAdmin->setUniqid($request->query->get('uniqid'));
 
         $formBuilder = $block->buildForm(new $entity());

@@ -42,6 +42,8 @@
                     $.get(Routing.generate('ait_cms_blank_form', routeParams), function (response) {
                         $('#{{ id }}').prepend($(response).hide().fadeIn());
                         select.val('').trigger('change');
+                        ait_tinimce_init();
+                        $(document).trigger('sonata-admin-append-form-element');
                         loader.hide();
                     });
                 }

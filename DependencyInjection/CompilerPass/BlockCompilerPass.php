@@ -149,5 +149,9 @@ class BlockCompilerPass implements CompilerPassInterface
 
         $routingListenerDefinition = $container->getDefinition('ait_cms.routing.listener');
         $routingListenerDefinition->addMethodCall('setRouteActions', [$routeActions]);
+
+        $sonataTemplates = $container->getParameter('sonata.admin.configuration.templates');
+        $sonataTemplates['layout'] = 'AitCmsBundle:Sonata/Admin:standard_layout.html.twig';
+        $container->setParameter('sonata.admin.configuration.templates', $sonataTemplates);
     }
 }
