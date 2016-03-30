@@ -3,9 +3,11 @@
 {% block form_row %}
     {% if form.parent.vars.name|default == 'blocks' %}
         <div class="ait-cms-block">
-            <div class="ait-cms-block-header">
-                <div data-target="#{{ form.vars.id }}" data-toggle="collapse">{{ form.children['name'].vars.value }}</div>
-                <span class="glyphicon glyphicon-eye-{{ form.children['enabled'].vars.value ? 'open' : 'close' }}"></span>
+            <div class="ait-cms-block-header panel panel-default" data-target="#{{ form.vars.id }}" data-toggle="collapse" role="button">
+                <div class="panel-body">
+                    <strong>{{ form.children['name'].vars.value }}</strong>
+                    <span class="glyphicon glyphicon-eye-{{ form.children['enabled'].vars.data ? 'open' : 'close' }}"></span>
+                </div>
             </div>
             <div id="{{ form.vars.id }}" class="ait-cms-block-content collapse">
                 {{ parent() }}
