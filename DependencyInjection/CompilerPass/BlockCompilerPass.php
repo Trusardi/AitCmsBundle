@@ -154,17 +154,5 @@ class BlockCompilerPass implements CompilerPassInterface
         $sonataTemplates = $container->getParameter('sonata.admin.configuration.templates');
         $sonataTemplates['layout'] = 'AitCmsBundle:Sonata/Admin:standard_layout.html.twig';
         $container->setParameter('sonata.admin.configuration.templates', $sonataTemplates);
-
-        $sonataOrmCompilerPass = new AddTemplatesCompilerPass();
-        foreach ($container->findTaggedServiceIds('sonata.admin') as $id => $attributes) {
-            if (!isset($attributes[0]['manager_type']) || $attributes[0]['manager_type'] !== 'orm') {
-                continue;
-            }
-            $sonataOrmCompilerPass->mergeMethodCall(
-                $container->getDefinition($id),
-                'setFormTheme',
-                ['AitCmsBundle:Form:form_admin_fields.html.twig']
-            );
-        }
     }
 }

@@ -1,0 +1,19 @@
+{% extends 'SonataDoctrineORMAdminBundle:Form:form_admin_fields.html.twig' %}
+
+{% block form_row %}
+    {% if form.parent.vars.name|default == 'blocks' %}
+        <div class="ait-cms-block">
+            <div class="ait-cms-block-header">
+                <div data-target="#{{ form.vars.id }}" data-toggle="collapse">{{ form.children['name'].vars.value }}</div>
+                <span class="glyphicon glyphicon-eye-{{ form.children['enabled'].vars.value ? 'open' : 'close' }}"></span>
+            </div>
+            <div id="{{ form.vars.id }}" class="ait-cms-block-content collapse">
+                {{ parent() }}
+            </div>
+        </div>
+    {% else %}
+        <div class="ait-cms-field {{ form.vars.attr.ait_cms_field_class|default }}">
+            {{ parent() }}
+        </div>
+    {% endif %}
+{% endblock form_row %}

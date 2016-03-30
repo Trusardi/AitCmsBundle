@@ -1,12 +1,15 @@
 {% block ait_blocks_widget %}
+    {% form_theme form 'AitCmsBundle:Form:block_admin_fields.html.twig' %}
+
     <style>
         .block-workspace-widget-container {
 
         }
-        #{{ id }} > .ait-cms-form-group {
+        .ait-cms-block-container {
             background: rgba(0, 0, 0, 0.1);
             padding: 10px;
             margin-bottom: 10px;
+
         }
         .block-select {
             margin-bottom: 30px;
