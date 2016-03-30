@@ -124,6 +124,7 @@ abstract class AbstractBlockService
                 $block,
                 [
                     'data_class' => (new \ReflectionClass($block))->getName(),
+                    'label' => false,
                     'attr' => [
                         'class' => 'form-group',
                     ],

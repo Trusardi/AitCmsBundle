@@ -16,7 +16,7 @@ abstract class ParentBlock implements BlockInterface
     {
         $this->enabled = true;
         $this->position = 0;
-        $this->name = (new \ReflectionClass($this))->getShortName();
+        $this->name = sprintf('%s %s', (new \ReflectionClass($this))->getShortName(), substr(md5(uniqid()), 0, 8));
     }
 
     public function getName()
