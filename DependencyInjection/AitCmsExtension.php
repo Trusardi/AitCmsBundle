@@ -67,7 +67,6 @@ class AitCmsExtension extends Extension
         $collector->addAssociation($config['class']['page'], 'mapManyToMany', [
             'fieldName' => 'blocks',
             'targetEntity' => $config['class']['parent_block'],
-            'orphanRemoval' => true,
             'cascade' => [
                 'persist',
                 'remove',
