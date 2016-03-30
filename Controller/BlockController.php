@@ -11,28 +11,23 @@ class BlockController extends Controller
 {
     public function blankFormAction(Request $request)
     {
-        $serviceId = $request->query->get('service_id');
-
         $manager = $this->get('ait_cms.block_manager');
-
+        $serviceId = $request->query->get('service_id');
         $entity = $manager->getDefinition($serviceId)['entity'];
 
-        $block = $this->get($serviceId);
         /** @var AbstractBlockService $block */
+        $block = $this->get($serviceId);
 
-        $pageAdmin = $this->container->get('ait_cms.admin.page');
-        $pageAdmin->setUniqid($request->query->get('uniqid'));
+        $admin = $this->container->get($request->query->get('admin_service_id'));
+        $admin->setUniqid($request->query->get('uniqid'));
 
         $formBuilder = $block->buildForm(new $entity());
+        $view = $formBuilder->getForm()->setParent($admin->getForm()->get('blocks'))->createView();
 
+        $twig = $this->container->get('twig');
+        $twig->getExtension('form')->renderer->setTheme($view, $admin->getFormTheme());
 
-        $view = $formBuilder->getForm()->setParent($pageAdmin->getForm()->get('blocks'))->createView();
-
-        $this->container->get('twig')->getExtension('form')->renderer->setTheme($view, $pageAdmin->getFormTheme());
-
-        return new Response(
-            $this->container->get('twig')->render('AitCmsBundle:Form:blank_block_form.html.twig', ['form' => $view])
-        );
+        return new Response($twig->render('AitCmsBundle:Form:blank_block_form.html.twig', ['form' => $view]));
     }
 
 }

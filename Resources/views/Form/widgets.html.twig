@@ -38,7 +38,10 @@
             $('#block-select').on('change', function () {
                 var select = $(this),
                     loader = $('#loader').show(),
-                    routeParams = {uniqid: '{{ sonata_admin.admin.uniqid }}'};
+                    routeParams = {
+                        admin_service_id: '{{ sonata_admin.admin.code }}',
+                        uniqid: '{{ sonata_admin.admin.uniqid }}'
+                    };
                 if (select.val()) {
                     routeParams.service_id = select.val();
                     $.get(Routing.generate('ait_cms_blank_form', routeParams), function (response) {
