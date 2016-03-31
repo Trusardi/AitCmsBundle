@@ -40,11 +40,31 @@
             margin-bottom: 20px;
             clear: both;
         }
+        .enabled-checkbox-btn:active {
+            box-shadow: none;
+        }
+        .enabled-checkbox + .enabled-checkbox-on {
+            display: none;
+        }
+        .enabled-checkbox + .enabled-checkbox-on + .enabled-checkbox-off {
+            display: inline-block;
+        }
+        .enabled-checkbox:checked + .enabled-checkbox-on {
+            display: inline-block;
+        }
+        .enabled-checkbox:checked + .enabled-checkbox-on + .enabled-checkbox-off {
+            display: none;
+        }
+        .block-actions {
+            clear: both;
+            margin-bottom: 30px;
+            padding: 0 15px 0 15px;
+        }
     </style>
 
     <div id="block-workspace-widget-container" class="block-workspace-widget-container">
         <div class="add-block-container">
-            <a href="#" id="add-block-btn" class="btn btn-info btn-sm sonata-ba-action add-block-btn"><i class="fa fa-plus-circle"></i> Add block</a>
+            <a href="#" id="add-block-btn" class="btn btn-success btn-sm sonata-ba-action add-block-btn"><i class="fa fa-plus-circle"></i> Add new</a>
             <img id="loader" class="loader" src="{{ asset('bundles/sonataadmin/ajax-loader.gif') }}">
             <select id="add-block-select" class="add-block-select invisible" dir="rtl">
                 <option value="">Add Block</option>
@@ -61,7 +81,9 @@
         $(function () {
             'use strict';
             
-            var addBlockSelect = $('#add-block-select');
+            var widgetContainer = $('#block-workspace-widget-container'),
+                blockContainer = $('#{{ id }}'),
+                addBlockSelect = $('#add-block-select');
 
             $('#add-block-btn').on('click', function () {
                 addBlockSelect.select2('open');
@@ -78,12 +100,38 @@
                 if (select.val()) {
                     routeParams.service_id = select.val();
                     $.get(Routing.generate('ait_cms_blank_form', routeParams), function (response) {
-                        $('#{{ id }}').prepend($(response).hide().fadeIn());
+                        blockContainer.prepend($(response).hide().fadeIn());
                         select.val('').trigger('change');
                         ait_tinimce_init();
                         $(document).trigger('sonata-admin-append-form-element');
                         loader.hide();
                     });
+                }
+
+                return false;
+            });
+
+            widgetContainer.on('change', '.enabled-checkbox', function () {
+                var self = $(this);
+                console.log('test');
+                $('#' + self.data('id')).iCheck(self.is(':checked') ? 'check' : 'uncheck');
+            });
+
+            widgetContainer.on('click', '.delete-block-btn', function () {
+                if (!confirm('Really delete?')) {
+                    return false;
+                }
+
+                var self = $(this),
+                    container = self.parents('.ait-cms-block'),
+                    id = self.data('id');
+
+                container.slideUp();
+
+                if (id) {
+                    console.log('Deleted block with id ' + id);
+                } else {
+                    console.log('Removed block');
                 }
 
                 return false;

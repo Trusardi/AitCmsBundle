@@ -2,13 +2,26 @@
 <div class="ait-cms-block">
     <div class="ait-cms-block-header panel panel-default" data-target="#{{ form.vars.id }}" data-toggle="collapse" role="button">
         <div class="panel-body">
-            <strong>{{ form.children['name'].vars.value }}</strong>
-            <i class="fa fa-eye{{ not form.children['enabled'].vars.data ? '-slash' }}"></i>
+            <strong>{{ form.vars.data.name }}</strong>
+            <i class="fa fa-eye{{ not form.vars.data.enabled ? '-slash' }}"></i>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
             <div id="{{ form.vars.id }}" class="ait-cms-block-content collapse col-md-12">
+                <div class="btn-group block-actions">
+                    <label class="btn btn-sm btn-info sonata-ba-action">
+                        <input class="enabled-checkbox hidden" type="checkbox" {{ form.enabled.vars.data ? 'checked' }} data-id="{{ form.enabled.vars.id }}">
+                        <span class="enabled-checkbox-on"><i class="fa fa-eye"></i> Visible</span>
+                        <span class="enabled-checkbox-off"><i class="fa fa-eye-slash"></i> Hidden</span>
+                    </label>
+                    <a href="#" class="btn btn-sm btn-danger sonata-ba-action delete-block-btn" data-id="{{ form.vars.data.id }}"><i class="fa fa-minus-circle"></i> Delete</a>
+                </div>
+                {% for item in form.children %}
+                    {% if item.vars.block_prefixes[1] == 'checkbox' %}
+                        <input type="hidden" name="{{ item.vars.full_name }}" value="0">
+                    {% endif %}
+                {% endfor %}
                 {{ form_widget(form) }}
             </div>
         </div>

@@ -73,20 +73,6 @@ class BlockWorkspaceType extends AbstractType
                 }
             }
         );
-
-        // Remove unwanted blocks
-        $builder->addEventListener(
-            FormEvents::SUBMIT,
-            function (FormEvent $event) {
-                $enm = $this->container->get('doctrine')->getManager();
-                foreach ($event->getForm()->all() as $blockForm) {
-                    if ($blockForm->get('remove')->getData()) {
-                        $enm->remove($blockForm->getData());
-                    }
-                }
-                $enm->flush();
-            }
-        );
     }
 
     public function getName()

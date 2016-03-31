@@ -110,17 +110,8 @@ abstract class AbstractBlockService
                 'attr' => ['ait_cms_field_class' => 'col-md-4'],
             ])
             ->add('enabled', 'checkbox', [
-                'attr' => ['ait_cms_field_class' => 'col-md-6'],
-            ]);
-
-        if ($formBuilder->getData()->getId()) {
-            $formBuilder->add('remove', 'checkbox', [
-                'mapped' => false,
-                'attr' => ['ait_cms_field_class' => 'col-md-6'],
-            ]);
-        }
-
-        $formBuilder
+                'attr' => ['ait_cms_field_class' => 'hidden'],
+            ])
             ->add('entity', 'hidden', ['data' => $this->entityClass, 'mapped' => false])
             ->add('field_separator', 'text', [
                 'mapped' => false,
