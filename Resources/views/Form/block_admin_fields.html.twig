@@ -20,11 +20,6 @@
                             </label>
                             <a href="#" class="btn btn-sm btn-danger sonata-ba-action delete-block-btn" data-id="{{ form.vars.data.id }}"><i class="fa fa-minus-circle"></i> Delete</a>
                         </div>
-                        {% for item in form.children %}
-                            {% if item.vars.block_prefixes[1] == 'checkbox' %}
-                                <input type="hidden" name="{{ item.vars.full_name }}" value="0">
-                            {% endif %}
-                        {% endfor %}
                         {{ parent() }}
                     </div>
                 </div>
