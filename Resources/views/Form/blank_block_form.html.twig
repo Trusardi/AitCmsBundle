@@ -3,10 +3,10 @@
     <div class="ait-cms-block-header panel panel-default" data-target="#{{ form.vars.id }}" data-toggle="collapse" role="button">
         <div class="panel-body">
             <strong>{{ form.children['name'].vars.value }}</strong>
-            <span class="glyphicon glyphicon-eye-{{ form.children['enabled'].vars.data ? 'open' : 'close' }}"></span>
+            <i class="fa fa-eye{{ not form.children['enabled'].vars.data ? '-slash' }}"></i>
         </div>
     </div>
-    <div id="{{ form.vars.id }}" class="ait-cms-block-content collapse">
+    <div id="{{ form.vars.id }}" class="ait-cms-block-content collapse col-md-12">
         {{ form_widget(form) }}
     </div>
 </div>

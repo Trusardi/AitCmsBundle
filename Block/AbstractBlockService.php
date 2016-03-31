@@ -99,17 +99,34 @@ abstract class AbstractBlockService
     {
         $templates = $this->getTemplates();
         $formBuilder
-            ->add('name')
-            ->add('template', 'choice', ['choices' => array_combine($templates, $templates)])
-            ->add('enabled', 'checkbox');
+            ->add('name', 'text', [
+                'attr' => ['ait_cms_field_class' => 'col-md-4'],
+            ])
+            ->add('template', 'choice', [
+                'choices' => array_combine($templates, $templates),
+                'attr' => ['ait_cms_field_class' => 'col-md-4'],
+            ])
+            ->add('position', 'integer', [
+                'attr' => ['ait_cms_field_class' => 'col-md-4'],
+            ])
+            ->add('enabled', 'checkbox', [
+                'attr' => ['ait_cms_field_class' => 'col-md-6'],
+            ]);
 
         if ($formBuilder->getData()->getId()) {
-            $formBuilder->add('remove', 'checkbox', ['mapped' => false]);
+            $formBuilder->add('remove', 'checkbox', [
+                'mapped' => false,
+                'attr' => ['ait_cms_field_class' => 'col-md-6'],
+            ]);
         }
 
         $formBuilder
-            ->add('position', 'integer')
-            ->add('entity', 'hidden', ['data' => $this->entityClass, 'mapped' => false]);
+            ->add('entity', 'hidden', ['data' => $this->entityClass, 'mapped' => false])
+            ->add('field_separator', 'text', [
+                'mapped' => false,
+                'attr' => ['class' => 'hidden', 'ait_cms_field_class' => 'ait-cms-field-separator'],
+                'label' => false,
+            ]);
 
         return $formBuilder;
     }

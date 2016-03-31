@@ -17,7 +17,9 @@ class PageAdmin extends Admin
 
         $formMapper
             ->with('Blocks', ['class' => 'col-md-8'])
-                ->add('blocks', BlockWorkspaceType::class)
+                ->add('blocks', BlockWorkspaceType::class, [
+                    'label' => false,
+                ])
             ->end()
             ->with('General', ['class' => 'col-md-4'])
                 ->add('name', 'text')

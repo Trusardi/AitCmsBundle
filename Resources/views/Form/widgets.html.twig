@@ -7,37 +7,68 @@
         }
         .ait-cms-block-content {
             background: rgba(0, 0, 0, 0.1);
-            padding: 15px;
+            padding: 15px 0 15px 0;
             margin-bottom: 20px;
         }
         .block-select {
             margin-bottom: 30px;
         }
+        .add-block-container {
+            position: absolute;
+            right: 10px;
+            top: 9px;
+        }
+        .add-block-select {
+            height: 0;
+            width: 0;
+            overflow: hidden;
+        }
+        .add-block-btn {
+            float: right;
+        }
+        .add-block-btn .glyphicon {
+            top: 1px;
+        }
         .loader {
             display: none;
-            position: absolute;
-            top: 55px;
-            left: 60px;
+            float: right;
+            margin: 10px 10px 0 0
+        }
+        .ait-cms-field-separator {
+            background: #d3cfc8;
+            height: 1px;
+            margin-bottom: 20px;
+            clear: both;
         }
     </style>
 
     <div id="block-workspace-widget-container" class="block-workspace-widget-container">
-        <select id="block-select" class="block-select">
-            <option value="">Add Block</option>
-            {% for service_id, instance in blocks %}
-                <option value="{{ service_id }}">{{ instance.title }}</option>
-            {% endfor %}
-        </select>
+        <div class="add-block-container">
+            <a href="#" id="add-block-btn" class="btn btn-info btn-sm sonata-ba-action add-block-btn"><i class="fa fa-plus-circle"></i> Add block</a>
+            <img id="loader" class="loader" src="{{ asset('bundles/sonataadmin/ajax-loader.gif') }}">
+            <select id="add-block-select" class="add-block-select invisible" dir="rtl">
+                <option value="">Add Block</option>
+                {% for service_id, instance in blocks %}
+                    <option value="{{ service_id }}">{{ instance.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
 
-        <img id="loader" class="loader" src="{{ asset('bundles/sonataadmin/ajax-loader.gif') }}">
         {{ form_widget(form) }}
     </div>
 
     <script>
         $(function () {
             'use strict';
+            
+            var addBlockSelect = $('#add-block-select');
 
-            $('#block-select').on('change', function () {
+            $('#add-block-btn').on('click', function () {
+                addBlockSelect.select2('open');
+                return false;
+            });
+
+            addBlockSelect.on('change', function () {
                 var select = $(this),
                     loader = $('#loader').show(),
                     routeParams = {
