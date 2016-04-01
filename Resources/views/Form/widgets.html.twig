@@ -99,7 +99,7 @@
                     };
                 if (select.val()) {
                     routeParams.service_id = select.val();
-                    $.get(Routing.generate('ait_cms_blank_form', routeParams), function (response) {
+                    $.get(Routing.generate('ait_cms_block_blank_form', routeParams), function (response) {
                         blockContainer.prepend($(response).hide().fadeIn());
                         select.val('').trigger('change');
                         ait_tinimce_init();
@@ -113,7 +113,6 @@
 
             widgetContainer.on('change', '.enabled-checkbox', function () {
                 var self = $(this);
-                console.log('test');
                 $('#' + self.data('id')).iCheck(self.is(':checked') ? 'check' : 'uncheck');
             });
 
@@ -124,14 +123,16 @@
 
                 var self = $(this),
                     container = self.parents('.ait-cms-block'),
-                    id = self.data('id');
+                    id = self.data('id'),
+                    postData = {
+                        id: id,
+                        csrf_token: self.data('csrf-token')
+                    };
 
                 container.slideUp();
 
                 if (id) {
-                    console.log('Deleted block with id ' + id);
-                } else {
-                    console.log('Removed block');
+                    $.post(Routing.generate('ait_cms_block_delete'), postData);
                 }
 
                 return false;

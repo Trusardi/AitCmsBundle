@@ -1,5 +1,11 @@
-ait_cms_blank_form:
-    path: /ait_cms/block_blank_form
+ait_cms_block_blank_form:
+    path: /ait-cms/block-blank-form
     defaults:  { _controller: AitCmsBundle:Block:blankForm }
+    options:
+        expose: true
+
+ait_cms_block_delete:
+    path: /ait-cms/block-delete
+    defaults:  { _controller: AitCmsBundle:Block:deleteBlock }
     options:
         expose: true

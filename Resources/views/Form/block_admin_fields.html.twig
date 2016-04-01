@@ -18,7 +18,7 @@
                                 <span class="enabled-checkbox-on"><i class="fa fa-eye"></i> Visible</span>
                                 <span class="enabled-checkbox-off"><i class="fa fa-eye-slash"></i> Hidden</span>
                             </label>
-                            <a href="#" class="btn btn-sm btn-danger sonata-ba-action delete-block-btn" data-id="{{ form.vars.data.id }}"><i class="fa fa-minus-circle"></i> Delete</a>
+                            <a href="#" class="btn btn-sm btn-danger sonata-ba-action delete-block-btn" data-id="{{ form.vars.data.id }}" data-csrf-token="{{ csrf_token('block_delete_%s'|format(form.vars.data.id)) }}"><i class="fa fa-minus-circle"></i> Delete</a>
                         </div>
                         {{ parent() }}
                     </div>

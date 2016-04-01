@@ -27,6 +27,8 @@ class AitCmsExtension extends Extension
         $container->setParameter('ait_cms.routing.enabled', $config['enable_routing']);
         $container->setParameter('ait_cms.routing.first_page_route_action', $config['first_page_route_action']);
         $container->setParameter('ait_cms.class.page', $config['class']['page']);
+        $container->setParameter('ait_cms.class.parent_block', $config['class']['parent_block']);
+        $container->setParameter('ait_cms.class.sonata_media', $config['class']['sonata_media']);
         $container->setParameter('ait_cms.admin.page.class', $config['admin']['page']['class']);
         $container->setParameter('ait_cms.translation.locales', $config['translation']['locales']);
         $container->setParameter('ait_cms.translation.default_locale', $config['translation']['default_locale']);
