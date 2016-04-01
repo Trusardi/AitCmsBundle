@@ -8,7 +8,14 @@
         .ait-cms-block-content {
             background: rgba(0, 0, 0, 0.1);
             padding: 15px 0 15px 0;
+            margin: 20px 0 20px 0;
+            overflow: auto;
+        }
+        .ait-cms-block {
             margin-bottom: 20px;
+        }
+        .ait-cms-block .panel {
+            margin-bottom: 0;
         }
         .block-select {
             margin-bottom: 30px;
@@ -60,6 +67,13 @@
             margin-bottom: 30px;
             padding: 0 15px 0 15px;
         }
+        .sortable-item-placeholder {
+            border: 3px dashed rgba(44, 53, 51, 0.55);
+            margin-bottom: 20px;
+        }
+        #{{ id }} {
+            overflow: auto;
+        }
     </style>
 
     <div id="block-workspace-widget-container" class="block-workspace-widget-container">
@@ -74,7 +88,9 @@
             </select>
         </div>
 
-        {{ form_widget(form) }}
+        {#<div id="ait-cms-block-container" class="ait-cms-block-container">#}
+            {{ form_widget(form) }}
+        {#</div>#}
     </div>
 
     <script>
@@ -82,7 +98,8 @@
             'use strict';
             
             var widgetContainer = $('#block-workspace-widget-container'),
-                blockContainer = $('#{{ id }}'),
+                blockContainer = $('#ait-cms-block-container'),
+                blockList = $('#{{ id }}'),
                 addBlockSelect = $('#add-block-select');
 
             $('#add-block-btn').on('click', function () {
@@ -100,11 +117,12 @@
                 if (select.val()) {
                     routeParams.service_id = select.val();
                     $.get(Routing.generate('ait_cms_block_blank_form', routeParams), function (response) {
-                        blockContainer.prepend($(response).hide().fadeIn());
+                        blockList.prepend($(response).hide().fadeIn());
                         select.val('').trigger('change');
                         ait_tinimce_init();
                         $(document).trigger('sonata-admin-append-form-element');
                         loader.hide();
+                        blockContainer.sortable('refresh');
                     });
                 }
 
@@ -114,7 +132,7 @@
             widgetContainer.on('change', '.enabled-checkbox', function () {
                 var self = $(this);
                 $('#' + self.data('id')).iCheck(self.is(':checked') ? 'check' : 'uncheck');
-                $('#update-changes-label').toggleClass('hidden');
+                $('.update-changes-label', self.parents('.block-action-container')).toggleClass('hidden');
             });
 
             widgetContainer.on('click', '.delete-block-btn', function () {
@@ -137,6 +155,23 @@
                 }
 
                 return false;
+            });
+
+            blockList.sortable({
+                tolerance: 'pointer',
+                revert: 200,
+                items: '.ait-cms-block',
+                placeholder: 'sortable-item-placeholder',
+                handle: '.ait-cms-block-header',
+                start: function(event, ui) {
+                    ui.placeholder.width(ui.item.width() - 6);
+                    ui.placeholder.height(ui.item.height() - 6);
+                },
+                update: function() {
+                    $('.ait-cms-block').each(function (i, el) {
+                        $('.ait-cms-block-position', el).val(i);
+                    });
+                }
             });
         });
     </script>

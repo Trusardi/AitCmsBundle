@@ -100,14 +100,14 @@ abstract class AbstractBlockService
         $templates = $this->getTemplates();
         $formBuilder
             ->add('name', 'text', [
-                'attr' => ['ait_cms_field_class' => 'col-md-4'],
+                'attr' => ['ait_cms_field_class' => 'col-md-6'],
             ])
             ->add('template', 'choice', [
                 'choices' => array_combine($templates, $templates),
-                'attr' => ['ait_cms_field_class' => 'col-md-4'],
+                'attr' => ['ait_cms_field_class' => 'col-md-6'],
             ])
-            ->add('position', 'integer', [
-                'attr' => ['ait_cms_field_class' => 'col-md-4'],
+            ->add('position', 'hidden', [
+                'attr' => ['class' => 'ait-cms-block-position'],
             ])
             ->add('enabled', 'checkbox', [
                 'attr' => ['ait_cms_field_class' => 'hidden'],
