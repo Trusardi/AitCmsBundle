@@ -55,7 +55,7 @@
         .enabled-checkbox:checked + .enabled-checkbox-on + .enabled-checkbox-off {
             display: none;
         }
-        .block-actions {
+        .block-action-container {
             clear: both;
             margin-bottom: 30px;
             padding: 0 15px 0 15px;
@@ -114,6 +114,7 @@
             widgetContainer.on('change', '.enabled-checkbox', function () {
                 var self = $(this);
                 $('#' + self.data('id')).iCheck(self.is(':checked') ? 'check' : 'uncheck');
+                $('#update-changes-label').toggleClass('hidden');
             });
 
             widgetContainer.on('click', '.delete-block-btn', function () {

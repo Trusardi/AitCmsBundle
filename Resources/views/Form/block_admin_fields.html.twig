@@ -12,13 +12,16 @@
             <div class="row">
                 <div class="col-md-12">
                     <div id="{{ form.vars.id }}" class="ait-cms-block-content collapse col-md-12">
-                        <div class="btn-group block-actions">
-                            <label class="btn btn-sm btn-info sonata-ba-action">
-                                <input class="enabled-checkbox hidden" type="checkbox" {{ form.enabled.vars.data ? 'checked' }} data-id="{{ form.enabled.vars.id }}">
-                                <span class="enabled-checkbox-on"><i class="fa fa-eye"></i> Visible</span>
-                                <span class="enabled-checkbox-off"><i class="fa fa-eye-slash"></i> Hidden</span>
-                            </label>
-                            <a href="#" class="btn btn-sm btn-danger sonata-ba-action delete-block-btn" data-id="{{ form.vars.data.id }}" data-csrf-token="{{ csrf_token('block_delete_%s'|format(form.vars.data.id)) }}"><i class="fa fa-minus-circle"></i> Delete</a>
+                        <div class="block-action-container">
+                            <div class="btn-group">
+                                <label class="btn btn-sm btn-info sonata-ba-action">
+                                    <input class="enabled-checkbox hidden" type="checkbox" {{ form.enabled.vars.data ? 'checked' }} data-id="{{ form.enabled.vars.id }}">
+                                    <span class="enabled-checkbox-on"><i class="fa fa-eye"></i> Visible</span>
+                                    <span class="enabled-checkbox-off"><i class="fa fa-eye-slash"></i> Hidden</span>
+                                </label>
+                                <a href="#" class="btn btn-sm btn-danger sonata-ba-action delete-block-btn" data-id="{{ form.vars.data.id }}" data-csrf-token="{{ csrf_token('block_delete_%s'|format(form.vars.data.id)) }}"><i class="fa fa-minus-circle"></i> Delete</a>
+                            </div>
+                            <span id="update-changes-label" class="label label-info hidden">Don't forget to save your changes!</span>
                         </div>
                         {{ parent() }}
                     </div>
