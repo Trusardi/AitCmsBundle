@@ -161,7 +161,6 @@ class Listener
             ->createQueryBuilder()
             ->select('page')
             ->from($this->pageEntityClass, 'page')
-            ->where('page.enabled = 1')
             ->setMaxResults(1000)
             ->getQuery()
             ->getResult();
